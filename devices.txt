@@ -1,0 +1,55 @@
+﻿CREATE TABLE Users (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Username TEXT UNIQUE,
+    Email TEXT UNIQUE
+);
+
+CREATE TABLE Locations (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    LocationName TEXT,
+    Description TEXT
+);
+
+CREATE TABLE Devices (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT,
+    Type TEXT,
+    UserId INTEGER,
+    LocationId INTEGER,
+    FOREIGN KEY (UserId) REFERENCES Users(Id),
+    FOREIGN KEY (LocationId) REFERENCES Locations(Id)
+);
+
+CREATE TABLE DeviceStatusHistory (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    DeviceId INTEGER,
+    Status TEXT,
+    Timestamp DATETIME,
+    FOREIGN KEY (DeviceId) REFERENCES Devices(Id)
+);
+
+
+-- Insertar Usuarios
+INSERT INTO Users (Username, Email) VALUES ('user1', 'user1@example.com');
+INSERT INTO Users (Username, Email) VALUES ('user2', 'user2@example.com');
+
+-- Insertar Ubicaciones
+INSERT INTO Locations (LocationName, Description) VALUES ('Living Room', 'Main living area');
+INSERT INTO Locations (LocationName, Description) VALUES ('Kitchen', 'Cooking area');
+
+-- Insertar Dispositivos
+INSERT INTO Devices (Name, Type, UserId, LocationId) VALUES ('Smart Bulb', 'Lighting', 1, 1);
+INSERT INTO Devices (Name, Type, UserId, LocationId) VALUES ('Thermostat', 'Temperature Control', 2, 2);
+
+-- Insertar Historial de Estado de Dispositivos
+INSERT INTO DeviceStatusHistory (DeviceId, Status, Timestamp) VALUES (1, 'Online', '2024-11-14 10:00:00');
+INSERT INTO DeviceStatusHistory (DeviceId, Status, Timestamp) VALUES (2, 'Offline', '2024-11-14 11:00:00');
+
+
+-- Otros ejemplos
+-- Insertar dispositivos adicionales
+INSERT INTO Devices (Name, Type, UserId, LocationId) VALUES ('Smart Speaker', 'Audio', 3, 1);
+INSERT INTO Devices (Name, Type, UserId, LocationId) VALUES ('Security Camera', 'Surveillance', 4, 2);
+INSERT INTO Devices (Name, Type, UserId, LocationId) VALUES ('Air Purifier', 'Air Quality', 5, 3);
+INSERT INTO Devices (Name, Type, UserId, LocationId) VALUES ('Smart TV', 'Entertainment', 1, 1);
+INSERT INTO Devices (Name, Type, UserId, LocationId) VALUES ('Smart Lock', 'Security', 2, 2);
